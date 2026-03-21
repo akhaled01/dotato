@@ -11,6 +11,7 @@
 		"@dotato/db": "workspace:*",
 		"@dotato/env": "workspace:*",
 		"bullmq": "^5.71.0",
+		"hono": "^4.0.0",
 		"drizzle-orm": "^0.45.1",
 		"ioredis": "^5.10.1",
 		"octokit": "^5.0.5",
