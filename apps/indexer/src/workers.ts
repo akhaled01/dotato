@@ -25,7 +25,7 @@ export const indexWorker = new Worker<IndexJobData>(
 
 		const clone = await cloneRepo(repoUrl, branch, changedFiles);
 		const chunks = await chunkFiles(clone);
-		await embedChunks(repoUrl, chunks);
+		await embedChunks(repoUrl, branch, chunks);
 	},
 	{ connection },
 );
