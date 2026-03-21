@@ -1,20 +1,21 @@
 {
-  "name": "@dotato/env",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "exports": {
-    "./server": "./src/server.ts",
-    "./web": "./src/web.ts"
-  },
-  "dependencies": {
-    "@t3-oss/env-core": "^0.13.1",
-    "dotenv": "catalog:",
-    "zod": "catalog:"
-  },
-  "devDependencies": {
-    "@dotato/config": "workspace:*",
-    "@types/bun": "catalog:",
-    "typescript": "^5"
-  }
+	"name": "@dotato/env",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./src/server.ts",
+		"./server": "./src/server.ts",
+		"./web": "./src/web.ts"
+	},
+	"dependencies": {
+		"@t3-oss/env-core": "^0.13.1",
+		"dotenv": "catalog:",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@dotato/config": "workspace:*",
+		"@types/bun": "catalog:",
+		"typescript": "^5"
+	}
 }

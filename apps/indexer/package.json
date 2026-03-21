@@ -1,0 +1,23 @@
+{
+	"name": "indexer",
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "bun --watch src/index.ts",
+		"build": "tsc --noEmit",
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@dotato/db": "workspace:*",
+		"@dotato/env": "workspace:*",
+		"bullmq": "^5.71.0",
+		"ioredis": "^5.10.1",
+		"octokit": "^5.0.5",
+		"openai": "^4.0.0"
+	},
+	"devDependencies": {
+		"@dotato/config": "workspace:*",
+		"typescript": "^5"
+	},
+	"packageManager": "pnpm@10.31.0"
+}

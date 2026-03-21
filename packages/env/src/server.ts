@@ -6,10 +6,13 @@ export const env = createEnv({
 	server: {
 		DATABASE_URL: z.string().min(1),
 		REDIS_URL: z.url().default("redis://localhost:6380"),
-		CORS_ORIGIN: z.url(),
+		CORS_ORIGIN: z.url().optional(),
 		NODE_ENV: z
 			.enum(["development", "production", "test"])
 			.default("development"),
+		GITHUB_APP_ID: z.string().min(1),
+		GITHUB_PRIVATE_KEY: z.string().min(1),
+		OPENAI_API_KEY: z.string().min(1),
 	},
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
