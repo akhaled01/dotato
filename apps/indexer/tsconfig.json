@@ -1,7 +1,9 @@
 {
 	"extends": "@dotato/config/tsconfig.base.json",
 	"compilerOptions": {
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"noEmit": true
 	},
 	"include": ["src"]
 }
