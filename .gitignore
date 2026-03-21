@@ -49,3 +49,9 @@ coverage
 .cache
 tmp
 temp
+
+# Mint
+.mint/tasks/
+.mint/research/
+.mint/worktrees/
+.mint/plugins/
