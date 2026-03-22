@@ -1,5 +1,5 @@
 import { generateObject, jsonSchema } from "ai";
-import { chatModel } from "./models.ts";
+import { chatModel } from "./models";
 
 type QueryExpansion = { queries: [string, string, string] };
 

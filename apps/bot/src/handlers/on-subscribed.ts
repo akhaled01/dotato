@@ -1,6 +1,5 @@
 import { generateAnswer, streamAnswer } from "@dotato/llm/qa";
 import { expandQuery } from "@dotato/llm/query";
-import { generateReview, streamReview } from "@dotato/llm/review";
 import type { SearchResult } from "@dotato/retrieval";
 import { searchChunks } from "@dotato/retrieval";
 
@@ -14,7 +13,7 @@ const dedupeResults = (results: SearchResult[]): SearchResult[] => {
 	return [...seen.values()].sort((a, b) => b.score - a.score).slice(0, 10);
 };
 
-export const onMention = async (
+export const onSubscribed = async (
 	thread: unknown,
 	message: unknown,
 ): Promise<void> => {
@@ -22,30 +21,20 @@ export const onMention = async (
 		post: (text: string) => Promise<void>;
 		streamPost: (stream: unknown) => Promise<void>;
 		adapter: string;
-		metadata?: { pr?: { diff?: string } };
 		repoUrl?: string;
 	};
 	const msg = message as { text: string };
 
 	const repoUrl = t.repoUrl ?? "";
-	const isPr = Boolean(t.metadata?.pr);
-	const input = isPr ? (t.metadata?.pr?.diff ?? msg.text) : msg.text;
-
-	const queries = await expandQuery(input);
+	const queries = await expandQuery(msg.text);
 	const rawResults = await Promise.all(
 		queries.map((q) => searchChunks(repoUrl, q, 5)),
 	);
 	const context = dedupeResults(rawResults.flat());
 
 	if (t.adapter === "github") {
-		const text = isPr
-			? await generateReview(context, input)
-			: await generateAnswer(context, msg.text);
-		await t.post(text);
+		await t.post(await generateAnswer(context, msg.text));
 	} else {
-		const stream = isPr
-			? streamReview(context, input)
-			: streamAnswer(context, msg.text);
-		await t.streamPost(stream);
+		await t.streamPost(streamAnswer(context, msg.text));
 	}
 };

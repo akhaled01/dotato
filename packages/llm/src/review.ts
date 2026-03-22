@@ -1,6 +1,6 @@
 import type { SearchResult } from "@dotato/retrieval";
 import { generateText, streamText } from "ai";
-import { chatModel, reasonerModel } from "./models.ts";
+import { chatModel, reasonerModel } from "./models";
 
 type ReviewOptions = { deep?: boolean };
 

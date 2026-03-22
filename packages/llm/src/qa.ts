@@ -1,6 +1,6 @@
 import type { SearchResult } from "@dotato/retrieval";
 import { generateText, streamText } from "ai";
-import { chatModel } from "./models.ts";
+import { chatModel } from "./models";
 
 const buildSystemPrompt = (context: SearchResult[]): string => {
 	const contextBlock = context
