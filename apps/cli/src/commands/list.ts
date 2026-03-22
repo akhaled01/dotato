@@ -1,6 +1,5 @@
-import { db, pool } from "@dotato/db/client";
-import { repos } from "@dotato/db/schema";
 import { asc } from "drizzle-orm";
+import { db, pool, repos } from "../db.js";
 
 export const cmdList = async (): Promise<void> => {
 	const rows = await db.select().from(repos).orderBy(asc(repos.indexedAt));

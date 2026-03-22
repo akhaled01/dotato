@@ -1,6 +1,5 @@
-import { db, pool } from "@dotato/db/client";
-import { chunks, embeddings, repos } from "@dotato/db/schema";
 import { count, eq } from "drizzle-orm";
+import { chunks, db, embeddings, pool, repos } from "../db.js";
 
 export const cmdStatus = async (repoUrl: string): Promise<void> => {
 	const [repo] = await db

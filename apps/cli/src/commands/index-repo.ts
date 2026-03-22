@@ -1,4 +1,3 @@
-import { env } from "@dotato/env";
 import { Queue } from "bullmq";
 
 type IndexJobData = { repoUrl: string; branch: string; changedFiles: string[] };
@@ -8,7 +7,10 @@ export const cmdIndex = async (
 	branch: string,
 ): Promise<void> => {
 	const queue = new Queue<IndexJobData>("index-queue", {
-		connection: { url: env.REDIS_URL, maxRetriesPerRequest: null as null },
+		connection: {
+			url: process.env.REDIS_URL ?? "redis://localhost:6380",
+			maxRetriesPerRequest: null as null,
+		},
 	});
 
 	const job = await queue.add("index-repo", {
