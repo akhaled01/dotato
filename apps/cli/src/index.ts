@@ -1,8 +1,9 @@
 #!/usr/bin/env bun
+import "./setup.js";
 import { parseArgs } from "node:util";
-import { cmdIndex } from "./commands/index-repo";
-import { cmdList } from "./commands/list";
-import { cmdStatus } from "./commands/status";
+import { cmdIndex } from "./commands/index-repo.js";
+import { cmdList } from "./commands/list.js";
+import { cmdStatus } from "./commands/status.js";
 
 const HELP = `
 dotato — Dotato CLI
