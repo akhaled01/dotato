@@ -14,6 +14,8 @@ export const env = createEnv({
 		GITHUB_PRIVATE_KEY: z.string().min(1),
 		GITHUB_WEBHOOK_SECRET: z.string().min(1),
 		OPENAI_API_KEY: z.string().min(1),
+		DEEPSEEK_API_KEY: z.string().min(1),
+		COHERE_API_KEY: z.string().min(1).optional(),
 	},
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
