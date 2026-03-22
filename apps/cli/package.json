@@ -1,0 +1,22 @@
+{
+	"name": "dotato",
+	"version": "0.1.0",
+	"type": "module",
+	"bin": {
+		"dotato": "./src/index.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@dotato/db": "workspace:*",
+		"@dotato/env": "workspace:*",
+		"bullmq": "^5.71.0",
+		"drizzle-orm": "^0.45.1"
+	},
+	"devDependencies": {
+		"@dotato/config": "workspace:*",
+		"@types/bun": "catalog:",
+		"typescript": "^5"
+	}
+}
