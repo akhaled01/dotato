@@ -1,0 +1,20 @@
+{
+	"name": "@dotato/logger",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"check-types": "tsc --noEmit"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"consola": "catalog:"
+	},
+	"devDependencies": {
+		"@dotato/config": "workspace:*",
+		"@types/bun": "catalog:",
+		"typescript": "^5"
+	}
+}

@@ -15,6 +15,9 @@ catalogs:
     '@types/react-dom':
       specifier: ^19.2.3
       version: 19.2.3
+    consola:
+      specifier: ^3.2.3
+      version: 3.4.2
     dotenv:
       specifier: ^17.2.2
       version: 17.3.1
@@ -253,6 +256,22 @@ importers:
       zod:
         specifier: 'catalog:'
         version: 4.3.6
+    devDependencies:
+      '@dotato/config':
+        specifier: workspace:*
+        version: link:../config
+      '@types/bun':
+        specifier: 'catalog:'
+        version: 1.3.11
+      typescript:
+        specifier: ^5
+        version: 5.9.3
+
+  packages/logger:
+    dependencies:
+      consola:
+        specifier: 'catalog:'
+        version: 3.4.2
     devDependencies:
       '@dotato/config':
         specifier: workspace:*
@@ -1907,6 +1926,10 @@ packages:
   commander@14.0.3:
     resolution: {integrity: sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw==}
     engines: {node: '>=20'}
+
+  consola@3.4.2:
+    resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
+    engines: {node: ^14.18.0 || >=16.10.0}
 
   content-disposition@1.0.1:
     resolution: {integrity: sha512-oIXISMynqSqm241k6kcQ5UwttDILMK4BiurCfGEREw6+X9jkkpEe5T9FZaApyLGGOnFuyMWZpdolTXMtvEJ08Q==}
@@ -4939,6 +4962,8 @@ snapshots:
   commander@11.1.0: {}
 
   commander@14.0.3: {}
+
+  consola@3.4.2: {}
 
   content-disposition@1.0.1: {}
 
