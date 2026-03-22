@@ -1,5 +1,7 @@
 import { Queue } from "bullmq";
 
+import { resolveConfig } from "../config.js";
+
 type IndexJobData = { repoUrl: string; branch: string; changedFiles: string[] };
 
 export const cmdIndex = async (
@@ -8,7 +10,7 @@ export const cmdIndex = async (
 ): Promise<void> => {
 	const queue = new Queue<IndexJobData>("index-queue", {
 		connection: {
-			url: process.env.REDIS_URL ?? "redis://localhost:6380",
+			url: resolveConfig().redisUrl,
 			maxRetriesPerRequest: null as null,
 		},
 	});
