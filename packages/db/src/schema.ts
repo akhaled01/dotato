@@ -37,3 +37,11 @@ export const embeddings = pgTable(
 	},
 	(t) => [unique().on(t.chunkId)],
 );
+
+export const feedback = pgTable("feedback", {
+	id: uuid("id").primaryKey().defaultRandom(),
+	repoUrl: text("repo_url").notNull(),
+	messageId: text("message_id").notNull(),
+	value: integer("value").notNull(),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+});
