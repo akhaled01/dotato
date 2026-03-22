@@ -24,6 +24,10 @@ Usage:
   dotato status <repo-url>
     Show chunk and embedding counts for a specific repo.
 
+  dotato configure
+    Save Postgres and Redis URLs to ~/.dotato/config.json.
+    Override per-run with DATABASE_URL and REDIS_URL env vars.
+
   dotato --help
     Show this help.
 
@@ -40,7 +44,9 @@ Examples:
 
 export const gitRemoteUrl = (): string | undefined => {
 	try {
-		return execSync("git remote get-url origin", { stdio: ["ignore", "pipe", "ignore"] })
+		return execSync("git remote get-url origin", {
+			stdio: ["ignore", "pipe", "ignore"],
+		})
 			.toString()
 			.trim();
 	} catch {
@@ -50,7 +56,9 @@ export const gitRemoteUrl = (): string | undefined => {
 
 export const gitCurrentBranch = (): string => {
 	try {
-		const branch = execSync("git branch --show-current", { stdio: ["ignore", "pipe", "ignore"] })
+		const branch = execSync("git branch --show-current", {
+			stdio: ["ignore", "pipe", "ignore"],
+		})
 			.toString()
 			.trim();
 		return branch ? `refs/heads/${branch}` : "refs/heads/main";

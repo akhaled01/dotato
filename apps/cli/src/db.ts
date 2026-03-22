@@ -2,6 +2,8 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import pg from "pg";
 
+import { resolveConfig } from "./config.js";
+
 export const repos = pgTable("repos", {
 	id: uuid("id").primaryKey().defaultRandom(),
 	url: text("url").notNull().unique(),
@@ -23,12 +25,7 @@ export const embeddings = pgTable("embeddings", {
 	chunkId: uuid("chunk_id").notNull(),
 });
 
-const connectionString = process.env.DATABASE_URL;
-if (!connectionString) {
-	throw new Error(
-		"DATABASE_URL is not set. Does a .env file exist in the current directory?",
-	);
-}
+const { databaseUrl } = resolveConfig();
 
-export const pool = new pg.Pool({ connectionString });
+export const pool = new pg.Pool({ connectionString: databaseUrl });
 export const db = drizzle(pool);
