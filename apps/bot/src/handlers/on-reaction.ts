@@ -1,19 +1,19 @@
 import { db } from "@dotato/db";
 import { feedback } from "@dotato/db/schema";
 
-export const onReaction = async (
-	thread: unknown,
-	reaction: unknown,
-): Promise<void> => {
-	const t = thread as { repoUrl?: string; messageId?: string };
-	const r = reaction as { emoji: string };
+export const onReaction = async (event: unknown): Promise<void> => {
+	const e = event as {
+		messageId: string;
+		rawEmoji: string;
+		thread?: { repoUrl?: string };
+	};
 
-	const value = r.emoji === "+1" ? 1 : r.emoji === "-1" ? -1 : null;
+	const value = e.rawEmoji === "+1" ? 1 : e.rawEmoji === "-1" ? -1 : null;
 	if (value === null) return;
 
 	await db.insert(feedback).values({
-		repoUrl: t.repoUrl ?? "",
-		messageId: t.messageId ?? "",
+		repoUrl: e.thread?.repoUrl ?? "",
+		messageId: e.messageId,
 		value,
 	});
 };
