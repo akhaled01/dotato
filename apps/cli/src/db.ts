@@ -25,7 +25,14 @@ export const embeddings = pgTable("embeddings", {
 	chunkId: uuid("chunk_id").notNull(),
 });
 
-const { databaseUrl } = resolveConfig();
+let _pool: pg.Pool | undefined;
+let _db: ReturnType<typeof drizzle> | undefined;
 
-export const pool = new pg.Pool({ connectionString: databaseUrl });
-export const db = drizzle(pool);
+export const getClient = (): { pool: pg.Pool; db: ReturnType<typeof drizzle> } => {
+	if (!_pool || !_db) {
+		const { databaseUrl } = resolveConfig();
+		_pool = new pg.Pool({ connectionString: databaseUrl });
+		_db = drizzle(_pool);
+	}
+	return { pool: _pool, db: _db };
+};

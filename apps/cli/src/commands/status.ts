@@ -1,7 +1,9 @@
 import { count, eq } from "drizzle-orm";
-import { chunks, db, embeddings, pool, repos } from "../db.js";
+
+import { chunks, embeddings, getClient, repos } from "../db.js";
 
 export const cmdStatus = async (repoUrl: string): Promise<void> => {
+	const { db, pool } = getClient();
 	const [repo] = await db
 		.select()
 		.from(repos)

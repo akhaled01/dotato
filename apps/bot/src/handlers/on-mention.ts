@@ -31,21 +31,33 @@ export const onMention = async (
 	const isPr = Boolean(t.metadata?.pr);
 	const input = isPr ? (t.metadata?.pr?.diff ?? msg.text) : msg.text;
 
-	const queries = await expandQuery(input);
-	const rawResults = await Promise.all(
-		queries.map((q) => searchChunks(repoUrl, q, 5)),
-	);
-	const context = dedupeResults(rawResults.flat());
+	console.log("[on-mention] adapter=%s repoUrl=%s isPr=%s input=%s", t.adapter, repoUrl, isPr, input.slice(0, 80));
 
-	if (t.adapter === "github") {
-		const text = isPr
-			? await generateReview(context, input)
-			: await generateAnswer(context, msg.text);
-		await t.post(text);
-	} else {
-		const stream = isPr
-			? streamReview(context, input)
-			: streamAnswer(context, msg.text);
-		await t.streamPost(stream);
+	try {
+		const queries = await expandQuery(input);
+		console.log("[on-mention] expanded queries:", queries);
+
+		const rawResults = await Promise.all(
+			queries.map((q) => searchChunks(repoUrl, q, 5)),
+		);
+		const context = dedupeResults(rawResults.flat());
+		console.log("[on-mention] context chunks:", context.length);
+
+		if (t.adapter === "github") {
+			const text = isPr
+				? await generateReview(context, input)
+				: await generateAnswer(context, msg.text);
+			console.log("[on-mention] posting reply, length=%d", text.length);
+			await t.post(text);
+		} else {
+			const stream = isPr
+				? streamReview(context, input)
+				: streamAnswer(context, msg.text);
+			await t.streamPost(stream);
+		}
+		console.log("[on-mention] done");
+	} catch (err) {
+		console.error("[on-mention] error:", err);
+		await t.post("Sorry, something went wrong. Please try again.").catch(() => undefined);
 	}
 };

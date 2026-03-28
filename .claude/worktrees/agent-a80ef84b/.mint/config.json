@@ -1,0 +1,31 @@
+{
+	"stack": "typescript",
+	"packageManager": "pnpm",
+	"gates": {
+		"lint": "pnpm check",
+		"types": "pnpm check-types",
+		"tests": null
+	},
+	"reviewers": {
+		"spec": true,
+		"quality": true,
+		"security": true,
+		"conventions": true,
+		"tests": true,
+		"business": false,
+		"performance": false
+	},
+	"conventions": {
+		"docs": ["CLAUDE.md"]
+	},
+	"business": {
+		"docs": []
+	},
+	"isolation": {
+		"plan": "worktree",
+		"ship": "worktree",
+		"quick": "branch"
+	},
+	"documenters": [],
+	"plugins": []
+}

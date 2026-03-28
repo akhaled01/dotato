@@ -1,7 +1,9 @@
 import { asc } from "drizzle-orm";
-import { db, pool, repos } from "../db.js";
+
+import { getClient, repos } from "../db.js";
 
 export const cmdList = async (): Promise<void> => {
+	const { db, pool } = getClient();
 	const rows = await db.select().from(repos).orderBy(asc(repos.indexedAt));
 	await pool.end();
 

@@ -1,0 +1,27 @@
+{
+	"name": "@dotato/llm",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"check-types": "tsc --noEmit"
+	},
+	"exports": {
+		".": "./src/models.ts",
+		"./review": "./src/review.ts",
+		"./qa": "./src/qa.ts",
+		"./query": "./src/query.ts"
+	},
+	"dependencies": {
+		"@dotato/env": "workspace:*",
+		"@dotato/retrieval": "workspace:*",
+		"ai": "^4.0.0",
+		"@ai-sdk/deepseek": "^0.2.0",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@dotato/config": "workspace:*",
+		"@types/bun": "catalog:",
+		"typescript": "^5"
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"name": "@dotato/retrieval",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"check-types": "tsc --noEmit"
+	},
+	"exports": {
+		".": "./src/search.ts"
+	},
+	"dependencies": {
+		"@dotato/db": "workspace:*",
+		"@dotato/env": "workspace:*",
+		"drizzle-orm": "^0.45.1",
+		"openai": "^4.0.0",
+		"pg": "^8.17.1"
+	},
+	"devDependencies": {
+		"@dotato/config": "workspace:*",
+		"@types/pg": "^8.16.0",
+		"typescript": "^5"
+	}
+}

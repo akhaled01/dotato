@@ -1,39 +1,40 @@
 import { Queue, Worker } from "bullmq";
+import { env } from "@dotato/env/server";
 import { chunkFiles } from "./chunk/index";
 import { cloneRepo } from "./clone/index";
 import { embedChunks } from "./embed/index";
 
 export type IndexJobData = {
-	repoUrl: string;
-	branch: string;
-	changedFiles: string[];
+  repoUrl: string;
+  branch: string;
+  changedFiles: string[];
 };
 
 const connection = {
-	url: process.env.REDIS_URL ?? "redis://localhost:6379",
-	maxRetriesPerRequest: null as null,
+  url: env.REDIS_URL,
+  maxRetriesPerRequest: null as null,
 };
 
 export const indexQueue = new Queue<IndexJobData>("index-queue", {
-	connection,
+  connection,
 });
 
 export const indexWorker = new Worker<IndexJobData>(
-	"index-queue",
-	async (job) => {
-		const { repoUrl, branch, changedFiles } = job.data;
+  "index-queue",
+  async (job) => {
+    const { repoUrl, branch, changedFiles } = job.data;
 
-		const clone = await cloneRepo(repoUrl, branch, changedFiles);
-		const chunks = await chunkFiles(clone);
-		await embedChunks(repoUrl, branch, chunks);
-	},
-	{ connection },
+    const clone = await cloneRepo(repoUrl, branch, changedFiles);
+    const chunks = await chunkFiles(clone);
+    await embedChunks(repoUrl, branch, chunks);
+  },
+  { connection },
 );
 
 indexWorker.on("completed", (job) => {
-	console.log(`Indexed ${job.data.repoUrl}`);
+  console.log(`Indexed ${job.data.repoUrl}`);
 });
 
 indexWorker.on("failed", (job, err) => {
-	console.error(`Failed ${job?.data.repoUrl}:`, err);
+  console.error(`Failed ${job?.data.repoUrl}:`, err);
 });
